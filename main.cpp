@@ -1,3 +1,4 @@
+
 #include<iostream>
 #include"TicTacToe.h"
 
@@ -11,7 +12,11 @@ int main()
     };
 
     struct player spieler[2];
+    spieler[0].number = 1;
+    spieler[1].number = 2;
     enum mode Mygame;
+   
+
     menu(field,spieler);
    
 
