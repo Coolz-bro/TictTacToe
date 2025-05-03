@@ -1,22 +1,18 @@
-
 #include<iostream>
-#include"spiel.h"
+#include"game.h"
 
 int main()
 {
     char field[3][3];
-    struct player spieler[2]{
-        {1,"Mohamad",19,2},
-        {2,"Max",17,3},
-    };
-    /*spieler[0].number = 1;
-    spieler[1].number = 2;*/
+    struct player spieler[MAX_SIZE];
+    spieler[0].number = 1;
+    spieler[1].number = 2;
     enum mode Mygame;
-
-
-    menu(field, spieler);
-
-
+    while (true)
+    {
+        system("color f0");
+        menu(field, spieler);
+    }
     return 0;
 
 }

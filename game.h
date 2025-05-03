@@ -21,7 +21,7 @@ void input_player(struct player spieler[]);
 void drawField(char* p_field);
 bool checkWin(char field[3][3]);
 bool draw_game(char field[3][3]);
-void play(enum mode Mygame, char field[3][3], struct player spieler[2]);
+void play(enum mode Mygame, char field[3][3], struct player spieler[]);
 void show_ranklist();
 void binary_search(player spieler[]);
 void menu(char  field[3][3], struct player spieler[]);
