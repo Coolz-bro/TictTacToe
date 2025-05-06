@@ -1,43 +1,32 @@
-ï»¿#include<iostream>
-#include<fstream>
+#include<iostream>
+#include<stdio.h>
 #include"game.h"
 
-void menu(char  field[3][3], struct player spieler[])
+void play_menu(char  field[3][3], struct player players[])
 {
-   
-   
+
+    system("cls");
     enum mode Mygame;
     char input = ' ';
-  
+   
     do
     {
-        system("cls");
+        system("color f0");
         std::cout << "\nChose the mod \n"
             << "classic , press(1) \n"
-            /* << "costum , press(2) \n"*/
             << "crazy mode, press(2)\n"
-            << "Show ranklist, press(3)\n"
-            << "looking for somebody, press(4)\n"
-            << "end game, press (q) or (5) ";
+            << "end game, press (q) or (3) ";
         std::cin >> input;
         switch (input)
         {
         case'1':
-            play(CLASSIC, field, spieler);
+            play(CLASSIC, field, players);
             break;
         case '2':
-            play(crazy, field, spieler);
+            play(crazy, field, players);
             break;
-        case'3':
-            show_ranklist();
-            std::cout << "\n\n";
-            system("pause");
-            break;
-        case'4':
-            binary_search(spieler);
-            system("pause");
-            break;
-        case '5':
+
+        case '3':
 
         case'q':
             std::cout << "\n\nEND!!\n\n";
@@ -47,47 +36,48 @@ void menu(char  field[3][3], struct player spieler[])
             std::cout << "\nInvalid!!, please try again\n\n";
             break;
         }
-    } while (input != 'q' && input != 'Q' && input != '5');
+    } while (input != 'q'  && input != 'Q' && input != '3');
 }
 
-
-void play(enum mode Mygame, char field[3][3], struct player spieler[])
+// Das ist das eigentliche Spiel
+void play(enum mode Mygame, char field[3][3], struct player players[])
 {
-    std::ofstream add("Daten.bin", std::ios::app); // Man erstellt eine Datei zum Einfuegen von Dateien
-    if (!add.is_open())
+    FILE* add; // deklaration einer Datei vom Typ FILE
+    int result = fopen_s(&add, "Players.txt", "w"); // Datei wird geoeffnet (Rückgabewert(int))
+   
+    if (result != 0) // hier wird überprüft, ob das Oeffnen der Datei gelungen ist
     {
-        std::cerr << "Datei kann nicht geoeffnet werden!!";
+        std::cerr << "Your File can not be open !";
         return;
     }
-    
-    input_player(spieler);
-    system("cls"); 
 
-    int i = 0, n = 0, x = 0; // for the wins
+    input_player(players);
+    system("cls");
 
-    char con_input; // to continue the game
+    int i = 0, n = 0, x = 0; // Laufvariabeln
+
+    char con_input; // Abfrage, ob man mit dem Spiel fortfahren moechte
 
     int row, column;
     bool draw = false;
     for (int loop = 0; loop < Mygame; loop++) // 
     {
         system("cls");
-       /* welcome();*/
+
         resetField(&field[0][0]);
         drawField(&field[0][0]);
         while (true)
         {
-           
             draw = draw_game(field);
-            
+
             if (draw)
             {
                 std::cout << "DRAW!!\n";
                 break;
             }
-            std::cout << "Player " << spieler[i].number << " enter the row: ";
+            std::cout << "Player " << players[i].number << " enter the row: ";
             std::cin >> row;
-            std::cout << "Player " << spieler[i].number << " enter the column: ";
+            std::cout << "Player " << players[i].number << " enter the column: ";
             std::cin >> column;
             if (row >= 3 || row < 0 || column >= 3 || column < 0)// Fix this
             {
@@ -101,7 +91,7 @@ void play(enum mode Mygame, char field[3][3], struct player spieler[])
                 continue;
             }
 
-            if (spieler[i].number == 1)
+            if (players[i].number == 1)
             {
                 field[row][column] = 'X';
 
@@ -110,21 +100,21 @@ void play(enum mode Mygame, char field[3][3], struct player spieler[])
                     system("cls");
                     drawField(&field[0][0]);
                     n++; // you won one match
-                    std::cout << "\n\n" << spieler[i].name << "  has won!!\n";
-                    spieler[i].wins = n;
-                    
+                    std::cout << "\n\n" << players[i].name << "  has won!!\n";
+                    players[i].wins = n;
+
                     break;
                 }
                 else
                 {
-                    spieler[i].wins = n;
+                    players[i].wins = n; // hier wird einen Wert übergeben 
                 }
-                i++;
+                i++;// abwechslung
                 system("cls");
                 drawField(&field[0][0]);
 
             }
-            else if (spieler[i].number == 2)
+            else if (players[i].number == 2)
             {
                 field[row][column] = 'O';
 
@@ -133,71 +123,68 @@ void play(enum mode Mygame, char field[3][3], struct player spieler[])
                     system("cls");
                     drawField(&field[0][0]);
                     x++;
-                    std::cout << "\n\n" << spieler[i].name << "  has won!!\n";
-                    spieler[i].wins = x;
-                    
+                    std::cout << "\n\n" << players[i].name << "  has won!!\n";
+                    players[i].wins = x;
+
                     break;
                 }
                 else
                 {
-                    spieler[i].wins = x;
+                    players[i].wins = x;
                 }
                 i--;
                 system("cls");
                 drawField(&field[0][0]);
             }
-           
+
 
         }
         std::cout << "Continue (y)es or (N)o ? ";
         std::cin >> con_input;
-        if (spieler[i].wins == spieler[i + 1].wins)
+        if (players[i].wins == players[i + 1].wins)
         {
             std::cout << "\n\nDRAW!!!";
             system("pause");
             break;
         }
-       
+
         if (con_input == 'n' || con_input == 'N')
         {
-           
-            if (spieler[i].wins > spieler[i + 1].wins)
+            // hier wird angezeigt, wer am meisten gewonnen hat 
+            if (players[i].wins > players[i + 1].wins)
             {
-                std::cout << "\nPlayer 1 won " << spieler[i].wins << " matchs!!\n\n\n";
+                std::cout << "\nPlayer 1 won " << players[i].wins << " matchs!!\n\n\n";
                 system("PAUSE");
                 break;
             }
             else
             {
-                std::cout << "\nPlayer 2 won  " << spieler[i + 1].wins << " matchs!!";
+                std::cout << "\nPlayer 2 won  " << players[i + 1].wins << " matchs!!";
                 system("PAUSE");
                 break;
             }
         }
+        else if ((con_input == 'y' || con_input == 'Y') && (players[i].wins == 3 || players[i + 1].wins == 3))
+        {
+            std::cout << "Player " << players[i].number << " has won " << players[i].wins << "matchs!!";
+            system("pause");
+            break;
+        }
         else
             system("cls");
     }
-    
 
-   
+    // hier werden die Ergebnisse gespeichert
     char save_my_progress;
     std::cout << "\nDo you want to save your progress ?,(y)es or (n)o ";
     std::cin >> save_my_progress;
     if (save_my_progress == 'y' || save_my_progress == 'N')
     {
-        add << "Name\t\t" << "Age\t\t" << "Wins\t\t" << "Number" << std::endl // hier wird in die Datei geschrieben
-            << std::string(55, '-') << std::endl;
-
-        for (int i = 0; i < 2; i++)
+        for (int k = 0; k < 2; k++)
         {
-            if (spieler[i].wins <= 0)
-            {
-                spieler[i].wins == 0;
-            }
-            add << spieler[i].name << "\t\t" << spieler[i].age << "\t\t" << spieler[i].wins << "\t\t" << spieler[i].number << std::endl;
-
+            fprintf_s(add, "%s\t%i\t%i\n", players[k].name, players[k].age, players[k].wins); // hier werden die Daten (Formatiert) in die Datei geschrieben
         }
-        add.close();// Die Datei wird am Ende geschlossen
+        fclose(add);
     }
     else
     {
