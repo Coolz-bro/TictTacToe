@@ -1,5 +1,6 @@
 #include<iostream>
 #include<stdio.h>
+#include"save.h"
 #include"game.h"
 
 void play_menu(char  field[3][3], struct player players[])
@@ -43,7 +44,7 @@ void play_menu(char  field[3][3], struct player players[])
 void play(enum mode Mygame, char field[3][3], struct player players[])
 {
     FILE* add; // deklaration einer Datei vom Typ FILE
-    int result = fopen_s(&add, "Players.txt", "w"); // Datei wird geoeffnet (Rückgabewert(int))
+    int result = fopen_s(&add, "Players.txt", "a"); // Datei wird geoeffnet (Rückgabewert(int))
    
     if (result != 0) // hier wird überprüft, ob das Oeffnen der Datei gelungen ist
     {

@@ -1,10 +1,10 @@
 #include <iostream>
+#include"save.h"
 #include"game.h"
+
 
 void main_menu(char field[3][3], player players[])
 {
-   
-   
     char my_input;
     
     do {
@@ -61,8 +61,6 @@ void resetField(char* p_field)
     }
 }
 
-
-
 // Eingabe der Daten eines Spielers
 void input_player(struct player players[])
 {
@@ -73,8 +71,6 @@ void input_player(struct player players[])
         std::cin >> players[i].name;
         std::cout << "Enter your age: ";
         std::cin >> players[i].age;
-        
-
     }
 }
 

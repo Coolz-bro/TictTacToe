@@ -1,3 +1,4 @@
+
 #pragma once
 
  /*hier werden alle Funktionen,
@@ -21,6 +22,7 @@ struct player
     int ID;
 };
 
+
 void resetField(char* p_field);
 void input_player(struct player players[]);
 void drawField(char* p_field);
@@ -32,8 +34,3 @@ void help();
 void credits();
 void play_menu(char  field[3][3], struct player players[]);
 
-
-void data_menu(player players[]);
-void show_ranklist(player players[],int num_players);
-int binary_search(player players[], int start, int end, int searched_num);
-void selction_sort(player players[], int num_players);
