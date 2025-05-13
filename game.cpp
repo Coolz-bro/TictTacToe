@@ -3,22 +3,22 @@
 #include"game.h"
 
 
-void main_menu(char field[3][3], player players[])
+void show_main_menu(char field[3][3], player players[])
 {
     char my_input;
     
     do {
         system("cls");
-        std::cout << "\n   WELCOME TO TICTACTOE !! \n\n";
+        std::cout << "\n\t\tMAIN MENU\n\n";
         system("color e0");
-        std::cout <<" "<< std::string(25, '-') << std::endl
-            << " |   Enter a number\t |\n"
-            << " |   PLAY (1)\t\t |\n"
-            << " |   PLAYERS_Data (2)\t |\n"
-            << " |   HELP (3)\t\t |\n"
-            << " |   Credits (4)\t |\n"
-            << " |   Quit (5)\t\t |\n"
-            << " "<< std::string(25, '-') << "\n  ";
+        std::cout <<"\t\xDA"<< std::string(24, '-') <<"\xbf\n" /* Rahmen*/
+            << " \t|   Enter a number\t |\n"
+            << " \t|   PLAY (1)\t\t |\n"
+            << " \t|   PLAYERS_Data (2)\t |\n"
+            << " \t|   HELP (3)\t\t |\n"
+            << " \t|   Credits (4)\t\t |\n"
+            << " \t|   Quit (5)\t\t |\n"
+            << "\t\xC0"<< std::string(24, '-') << "\xD9\n\n\t";
         std::cin >> my_input;
         switch (my_input)
         {
@@ -51,7 +51,7 @@ void main_menu(char field[3][3], player players[])
 }
 
 
-// Das Feld wir dadurch leer
+// Das Spielfeld wird nach jedem Spielzug zurückgesetzt
 void resetField(char* p_field)
 {
     for (int j = 0; j < LENGTH; j++)
@@ -61,16 +61,24 @@ void resetField(char* p_field)
     }
 }
 
-// Eingabe der Daten eines Spielers
-void input_player(struct player players[])
+// Spielerdaten eingeben
+void input_player(struct player players[],int num_players)
 {
-    for (int i = 0; i < 2; i++)
+    int final = num_players + 2;
+    for (int i = num_players ; i < final; i++)
     {
-
+        system("cls");
         std::cout << "\n\nPlayer " << players[i].number << " :\n\nEnter your name : ";
         std::cin >> players[i].name;
         std::cout << "Enter your age: ";
         std::cin >> players[i].age;
+        if (players[i].age <= 5)
+        {
+            std::cout << "\n\tYOU ARE TOO YOUNG!!\n";
+            i--;
+            system("pause");
+            continue;
+        }
     }
 }
 
@@ -91,7 +99,7 @@ void drawField(char* p_field)
 
     }
 }
-// hier wird überpruft, ob ein Spieler gewonnen hat
+// Hier wird überprüft, ob ein Spieler gewonnen hat
 bool checkWin(char field[3][3])
 {
     for (int r = 0; r < 3; r++)
@@ -100,15 +108,16 @@ bool checkWin(char field[3][3])
         {
             if (field[r][0] != ' ' && field[r][0] == field[r][1] && field[r][2] == field[r][1])return true; //horizontal
             else if (field[0][c] != ' ' && field[0][c] == field[1][c] && field[2][c] == field[1][c])return true;// vertikal
-            else  if (field[0][0] != ' ' && field[0][0] == field[1][1] && field[2][2] == field[1][1])return true;// diagonall
-            else  if (field[0][2] != ' ' && field[0][2] == field[1][1] && field[2][0] == field[1][1])return true; //diagonall
+           
         }
     }
-
-    return false;
+      if (field[0][0] != ' ' && field[0][0] == field[1][1] && field[2][2] == field[1][1])return true;// diagonall
+      if (field[0][2] != ' ' && field[0][2] == field[1][1] && field[2][0] == field[1][1])return true; //diagonall
+    
+      return false;
 }
 
-// falls das Spiel Unentschieden endet
+// Hier wird überprüft, ob ein Spieler gewonnen hat
 bool draw_game(char field[3][3])
 {
     for (int r = 0; r < 3; r++)
@@ -124,19 +133,19 @@ bool draw_game(char field[3][3])
     return true;
 }
 
-
+// Anzeige der Spielregeln für neue Spieler
 void help()
 {
     system("cls");
-    system("color e4");
+    system("color F4");
     std::cout <<"\t" << std::string(60, '*') << "\n\n"
-        << " \t\t What is Tic-tac-toe ? \n\n\n"
-        << "\t\tTic Tac Toe is a classic two-player game that is played on a 3X3 grid.\n\n"
-        << "\n\n\t\tHow is it played ? \n\n"
-        << "\t\tThe game is played by two players\n\n"
-        << "\t\tFirst player is (X) and second player is (O)\n\n"
-        << "\t\tGoal: get three of your symbols in a row (horizontally) ,\n \n"
-        << "   \t\t(vertically) or (diagonally)\n\n"
+        << " \t What is Tic-tac-toe ? \n\n\n"
+        << "\tTic Tac Toe is a classic two-player game that is played on a 3X3 grid.\n\n"
+        << "\n\n\tHow is it played ? \n\n"
+        << "\tThe game is played by two players\n\n"
+        << "\tFirst player is (X) and second player is (O)\n\n"
+        << "\tGoal: get three of your symbols in a row (horizontally) ,\n \n"
+        << "   \t(vertically) or (diagonally)\n\n"
         <<"\t" << std::string(60, '*') << "\n\n";
        system ("pause");
 }
