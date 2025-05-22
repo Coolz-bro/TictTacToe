@@ -5,6 +5,7 @@
 // Hier werden die restlichen Funktionen deklariert
 // Alle haben mit den Datensätzen der Spieler zu tun
 
+// Die Funktionen werden in save.cpp vorgestellt
 void set_ready(player players[],int &num_players);
 void data_menu(player players[]);
 void show_ranklist(player players[], int num_players);

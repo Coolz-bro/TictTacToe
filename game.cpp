@@ -9,6 +9,7 @@ void show_main_menu(char field[3][3], player players[])
     
     do {
         system("cls");
+        // Formatierung 
         std::cout << "\n\t\tMAIN MENU\n\n";
         system("color e0");
         std::cout <<"\t\xDA"<< std::string(24, '-') <<"\xbf\n" /* Rahmen*/
@@ -20,6 +21,7 @@ void show_main_menu(char field[3][3], player players[])
             << " \t|   Quit (5)\t\t |\n"
             << "\t\xC0"<< std::string(24, '-') << "\xD9\n\n\t";
         std::cin >> my_input;
+        // Hier können einige Menu aufgerufen
         switch (my_input)
         {
         case'1':
@@ -56,6 +58,7 @@ void resetField(char* p_field)
 {
     for (int j = 0; j < LENGTH; j++)
     {
+        // Alle Felder werden auf Leerzeichen gesetzt
         *p_field = ' ';
         p_field++;
     }
@@ -64,6 +67,8 @@ void resetField(char* p_field)
 // Spielerdaten eingeben
 void input_player(struct player players[],int num_players)
 {
+    // Es wird überprüft, wie viele Spieler überhaupt extieren
+    // Davor muss von der Datei gelesen werden 
     int final = num_players + 2;
     for (int i = num_players ; i < final; i++)
     {
@@ -72,6 +77,7 @@ void input_player(struct player players[],int num_players)
         std::cin >> players[i].name;
         std::cout << "Enter your age: ";
         std::cin >> players[i].age;
+        // Falls man Blödsinn eingiibt
         if (players[i].age <= 5)
         {
             std::cout << "\n\tYOU ARE TOO YOUNG!!\n";
@@ -117,7 +123,7 @@ bool checkWin(char field[3][3])
       return false;
 }
 
-// Hier wird überprüft, ob ein Spieler gewonnen hat
+// Hier wird überprüft, ob das Spiel uentschieden endet 
 bool draw_game(char field[3][3])
 {
     for (int r = 0; r < 3; r++)
@@ -150,6 +156,7 @@ void help()
        system ("pause");
 }
 
+// Hier werden alle angezeigt, die an diesem Projekt gearbeit haben 
 void credits()
 {
     system("cls");

@@ -7,13 +7,13 @@
  // funktioniert wie define
 enum mode
 {
-    CLASSIC = 3,
+    CLASSIC = 3, // Drei Spieldurchläufe
     CRAZY = 10,
     LENGTH = 9,
-    MAX_SIZE = 100
+    MAX_SIZE = 100 // Maximale länge für die Struktur
 };
 
-// Struktur
+// Struktur variabeln 
 struct player
 {
     int number;
@@ -24,7 +24,7 @@ struct player
     int ID;
 };
 
-
+// Funktionen werden in game.cpp vorgestellt 
 void resetField(char* p_field);
 void input_player(struct player players[],int num_players);
 void drawField(char* p_field);

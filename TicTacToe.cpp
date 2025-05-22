@@ -28,6 +28,7 @@ void play_menu(char  field[3][3], struct player players[])
         {
        
         case'1':
+           
             play(CLASSIC, field, players,num_players);
             break;
         case '2':

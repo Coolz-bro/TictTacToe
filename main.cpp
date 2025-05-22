@@ -1,6 +1,6 @@
 
 #include<iostream>
-#include"game.h" // Das ist eine Header_Datei (Funktion: Deklaration der Funktionen)
+#include"game.h" // Das ist eine Header_Datei (Dort werden einige Funktionen deklariert )
 
 int main()
 {
@@ -9,8 +9,7 @@ int main()
     char field[3][3]; 
     struct player players[MAX_SIZE]; //Struktur mit Zahn Elementen 
     enum mode Mygame; // für den modus
-    system("color f0"); // Hintergrundfarbe
-    show_main_menu(field, players); 
+    show_main_menu(field, players);  // Hauptmenu wird aufgerufen 
     return 0; 
 
 }

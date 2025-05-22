@@ -10,7 +10,9 @@ void data_menu(player players[])
   
     int num_players = 0;
     int remove_player=0;
+    // hier werden die Datensätze aus der Datei ausgelesen
     set_ready(players, num_players);
+    // Datensätze werden sotiernt
     selection_sort(players, num_players);
     char my_choice;
     do {
@@ -91,6 +93,7 @@ void show_ranklist(player players[], int num_players)
     system("cls");
     if (num_players > 0) // Man überprüft, ob Spieler überhaupt exsistieren
     {
+        // Formatieren
         std::cout << "\n\n\t\t\t       RANKLIST";
 
         std::cout << "\n\n\t\xDA" <<
@@ -253,7 +256,7 @@ void enter_first_character(player players[], int num_players) // Hier werden die
             << "\t" << std::string(35, '-') << std::endl;
         for (int loop = 0;loop < num_players;loop++)
         {
-            if (players[loop].name[0] == first_char)
+            if (players[loop].name[0] == first_char)// Es wird überprüft, ob der erste Buchstabe mit dem der Eingabe stimmt
             {
                 std::cout << "\t" << players[loop].name << "\t" << players[loop].age << "\t" << players[loop].wins << "\t" << players[loop].ID << "\t" << players[loop].rank << std::endl;
             }
@@ -480,6 +483,7 @@ void delete_file()
     {
         if (remove("Players.csv") == 0) 
         {
+            // Hier wird eine Ausgabe erscheinen, wenn die Datei erfolgreich gelöscht wird
             std::cout << "File deleted successfully.\n";
             system("pause");
         }
